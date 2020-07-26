@@ -1,6 +1,9 @@
 com/estagiozetta/mvc/view/util/Atributo$Estilo.class
 com/estagiozetta/mvc/view/util/Logotipo.class
 com/estagiozetta/mvc/view/util/Botao$3.class
+com/estagiozetta/mvc/view/util/OpcoesTabela$BotaoTabela$2.class
+com/estagiozetta/mvc/view/util/OpcoesTabela.class
+com/estagiozetta/mvc/view/util/Tabela.class
 com/estagiozetta/mvc/view/util/Navbar.class
 com/estagiozetta/mvc/view/util/Atributo.class
 com/estagiozetta/mvc/view/App.class
@@ -11,7 +14,10 @@ com/estagiozetta/mvc/view/TelaGerenciarCargos.class
 com/estagiozetta/sigus/Main.class
 com/estagiozetta/mvc/view/util/Botao.class
 module-info.class
+com/estagiozetta/mvc/view/util/Tabela$Celula.class
+com/estagiozetta/mvc/view/util/OpcoesTabela$BotaoTabela$1.class
 com/estagiozetta/mvc/view/util/Botao$1.class
+com/estagiozetta/mvc/view/util/OpcoesTabela$BotaoTabela.class
 com/estagiozetta/sigus/SystemInfo.class
 com/estagiozetta/mvc/view/TelaGerenciarUsuarios.class
 com/estagiozetta/mvc/view/TelaUtil.class
