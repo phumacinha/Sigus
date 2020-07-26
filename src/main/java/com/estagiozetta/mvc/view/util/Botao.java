@@ -31,7 +31,7 @@ public class Botao extends Button {
     protected Color corPrincipal, corSecundaria;
     protected Color corPreenchimento;
     protected final int ARCO = 5;
-    private boolean lightStyle = false;
+    private boolean lightStyle = false, propriedadePreencher = false;
     
     public Botao(String valor, double fontSize, double width, double height) {
         super(valor.toUpperCase());
@@ -43,21 +43,19 @@ public class Botao extends Button {
         setBackground(Background.EMPTY);
         setLightStyle();
         setAlignment(Pos.CENTER);
+
         
         setOnMouseEntered(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent e) {
-                setTextFill(corSecundaria);
-                BackgroundFill bg = new BackgroundFill(corPrincipal, new CornerRadii(ARCO), Insets.EMPTY);
-                setBackground(new Background(bg));
+                preencher(!propriedadePreencher);
             }
         });
         
         setOnMouseExited(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent e) {
-                setTextFill(corPrincipal);
-                setBackground(Background.EMPTY);
+                preencher(propriedadePreencher);
             }
         });
     }
@@ -67,8 +65,7 @@ public class Botao extends Button {
         corPrincipal = light ? Color.WHITE : corPreenchimento;
         corSecundaria = light ? corPreenchimento: Color.WHITE;
         
-        setTextFill(corPrincipal);
-        setBorder(new Border(new BorderStroke(corPrincipal, BorderStrokeStyle.SOLID, new CornerRadii(ARCO), new BorderWidths(1))));
+        preencher(false);
     }
     
     public final void setLightStyle () {
@@ -77,7 +74,15 @@ public class Botao extends Button {
     
     public void setCorPreenchimento (Color cor) {
         corPreenchimento = cor;
-        setLightStyle(lightStyle);
+        setPreenchido();
+    }
+    
+    public void setPreenchido() {
+        propriedadePreencher = true;
+        lightStyle = false;
+        corPrincipal = corPreenchimento;
+        corSecundaria = Color.WHITE;
+        preencher(propriedadePreencher);
     }
     
     public final void setOnMouseClicked(TelaUtil tela) {
@@ -91,5 +96,19 @@ public class Botao extends Button {
                 App.abrirTela(tela, novaJanela);
             }
         });
+    }
+    
+    private void preencher(boolean preencher) {
+        setBorder(new Border(new BorderStroke(corPrincipal, BorderStrokeStyle.SOLID, new CornerRadii(ARCO), new BorderWidths(1))));
+
+        if (preencher) {
+            setTextFill(corSecundaria);
+            BackgroundFill bg = new BackgroundFill(corPrincipal, new CornerRadii(ARCO), Insets.EMPTY);
+            setBackground(new Background(bg));
+        }
+        else {
+            setTextFill(corPrincipal);
+            setBackground(Background.EMPTY);
+        }
     }
 }
