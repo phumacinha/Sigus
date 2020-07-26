@@ -21,7 +21,6 @@ import javafx.stage.Window;
  * @author pedro
  */
 public abstract class TelaUtil {
-    private final StackPane root = new StackPane();
     private final String titulo;
     private Scene scene;
     private int width = Atributo.SCENE_WIDTH;
@@ -38,8 +37,8 @@ public abstract class TelaUtil {
     }
     
     public final Scene getScene() {
+        StackPane root = new StackPane(conteudoInicial());
         root.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
-        root.getChildren().add(conteudoInicial());
         
         scene = new Scene(root, width, height);
         scene.setFill(Color.WHITE);
@@ -48,7 +47,7 @@ public abstract class TelaUtil {
     }
     
     public final String getTitulo () {
-        return titulo;
+        return titulo + " | Sigus";
     }
     
     public final Window getWindow() {
