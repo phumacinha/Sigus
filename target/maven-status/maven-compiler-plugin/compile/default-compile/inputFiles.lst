@@ -1,10 +1,17 @@
 /home/pedro/Documentos/Estágio Zetta/Sigus/src/main/java/com/estagiozetta/mvc/view/TelaGerenciarCargos.java
+/home/pedro/Documentos/Estágio Zetta/Sigus/src/main/java/com/estagiozetta/mvc/view/TelaGerenciarAbstrata.java
 /home/pedro/Documentos/Estágio Zetta/Sigus/src/main/java/com/estagiozetta/mvc/view/util/Logotipo.java
 /home/pedro/Documentos/Estágio Zetta/Sigus/src/main/java/com/estagiozetta/mvc/view/util/Atributo.java
 /home/pedro/Documentos/Estágio Zetta/Sigus/src/main/java/com/estagiozetta/mvc/view/util/Tabela.java
 /home/pedro/Documentos/Estágio Zetta/Sigus/src/main/java/com/estagiozetta/mvc/view/util/Navbar.java
+/home/pedro/Documentos/Estágio Zetta/Sigus/src/main/java/com/estagiozetta/mvc/view/util/MaskedTextField.java
+/home/pedro/Documentos/Estágio Zetta/Sigus/src/main/java/com/estagiozetta/mvc/view/util/Formulario.java
+/home/pedro/Documentos/Estágio Zetta/Sigus/src/main/java/com/estagiozetta/mvc/view/TelaGerenciarPerfis.java
+/home/pedro/Documentos/Estágio Zetta/Sigus/src/main/java/com/estagiozetta/mvc/view/TelaFormUsuario.java
+/home/pedro/Documentos/Estágio Zetta/Sigus/src/main/java/com/estagiozetta/mvc/view/TelaFormCargo.java
 /home/pedro/Documentos/Estágio Zetta/Sigus/src/main/java/com/estagiozetta/mvc/view/util/Botao.java
 /home/pedro/Documentos/Estágio Zetta/Sigus/src/main/java/com/estagiozetta/sigus/Main.java
+/home/pedro/Documentos/Estágio Zetta/Sigus/src/main/java/com/estagiozetta/mvc/view/TelaFormPerfil.java
 /home/pedro/Documentos/Estágio Zetta/Sigus/src/main/java/module-info.java
 /home/pedro/Documentos/Estágio Zetta/Sigus/src/main/java/com/estagiozetta/mvc/view/App.java
 /home/pedro/Documentos/Estágio Zetta/Sigus/src/main/java/com/estagiozetta/sigus/SystemInfo.java
