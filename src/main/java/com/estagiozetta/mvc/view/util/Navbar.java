@@ -6,6 +6,7 @@
 package com.estagiozetta.mvc.view.util;
 
 import com.estagiozetta.mvc.view.TelaGerenciarCargos;
+import com.estagiozetta.mvc.view.TelaGerenciarPerfis;
 import com.estagiozetta.mvc.view.TelaGerenciarUsuarios;
 import com.estagiozetta.mvc.view.TelaInicial;
 import javafx.geometry.Insets;
@@ -33,6 +34,7 @@ public class Navbar extends HBox {
         btnCargos.setOnMouseClicked(new TelaGerenciarCargos());
         
         Botao btnPerfis = new Botao("Gerenciar Perfis", 12, 180, 40);
+        btnPerfis.setOnMouseClicked(new TelaGerenciarPerfis());
         
         Botao btnUsuarios = new Botao("Gerenciar Usuários", 12, 180, 40);
         btnUsuarios.setOnMouseClicked(new TelaGerenciarUsuarios());
