@@ -5,25 +5,67 @@
  */
 package com.estagiozetta.mvc.view;
 
-import com.estagiozetta.mvc.view.util.Navbar;
-import javafx.scene.Node;
-import javafx.scene.layout.VBox;
+import com.estagiozetta.mvc.view.util.OpcoesTabela;
+import com.estagiozetta.mvc.view.util.Tabela;
+import javafx.geometry.HPos;
+import javafx.scene.layout.ColumnConstraints;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
 
 /**
  *
  * @author pedro
  */
-public class TelaGerenciarUsuarios extends TelaUtil {
+public class TelaGerenciarUsuarios extends TelaGerenciarAbstrata {
     public TelaGerenciarUsuarios () {
-        super("Gerenciar Usuários | Sigus");
+        super("Gerenciar Usuários", "usuario");
+    }
+
+    @Override
+    protected Tabela getDadosCadastrados() {
+        Tabela tabela = new Tabela();
+            HBox.setHgrow(tabela, Priority.ALWAYS);
+            
+            ColumnConstraints cons = new ColumnConstraints();
+            cons.setFillWidth(true);
+            cons.setHgrow(Priority.ALWAYS);
+            
+            tabela.addColuna(cons, "CARGO");
+            
+            cons = new ColumnConstraints();
+            cons.setHalignment(HPos.CENTER);
+            tabela.addColuna(new ColumnConstraints(), "OPCOES");
+            
+            tabela.addLinha(tabela.novaCelula("Estudante"), tabela.novaCelula(new OpcoesTabela()));
+            
+            OpcoesTabela op = new OpcoesTabela();
+            op.naoRemovivel();
+            tabela.addLinha(tabela.novaCelula("Professor"), tabela.novaCelula(op));
+            
+            tabela.addLinha(tabela.novaCelula("Estudante"), tabela.novaCelula(new OpcoesTabela()));
+            tabela.addLinha(tabela.novaCelula("Estudante"), tabela.novaCelula(new OpcoesTabela()));
+            tabela.addLinha(tabela.novaCelula("Estudante"), tabela.novaCelula(new OpcoesTabela()));
+            tabela.addLinha(tabela.novaCelula("Estudante"), tabela.novaCelula(new OpcoesTabela()));
+            tabela.addLinha(tabela.novaCelula("Estudante"), tabela.novaCelula(new OpcoesTabela()));
+            tabela.addLinha(tabela.novaCelula("Estudante"), tabela.novaCelula(new OpcoesTabela()));
+            tabela.addLinha(tabela.novaCelula("Estudante"), tabela.novaCelula(new OpcoesTabela()));
+            tabela.addLinha(tabela.novaCelula("Estudante"), tabela.novaCelula(new OpcoesTabela()));
+            tabela.addLinha(tabela.novaCelula("Estudante"), tabela.novaCelula(new OpcoesTabela()));
+            tabela.addLinha(tabela.novaCelula("Estudante"), tabela.novaCelula(new OpcoesTabela()));
+            tabela.addLinha(tabela.novaCelula("Estudante"), tabela.novaCelula(new OpcoesTabela()));
+            tabela.addLinha(tabela.novaCelula("Estudante"), tabela.novaCelula(new OpcoesTabela()));
+            tabela.addLinha(tabela.novaCelula("Estudante"), tabela.novaCelula(new OpcoesTabela()));
+            tabela.addLinha(tabela.novaCelula("Estudante"), tabela.novaCelula(new OpcoesTabela()));
+            tabela.addLinha(tabela.novaCelula("Estudante"), tabela.novaCelula(new OpcoesTabela()));
+            tabela.addLinha(tabela.novaCelula("Estudante"), tabela.novaCelula(new OpcoesTabela()));
+            tabela.addLinha(tabela.novaCelula("Estudante"), tabela.novaCelula(new OpcoesTabela()));
+            tabela.addLinha(tabela.novaCelula("Estudante"), tabela.novaCelula(new OpcoesTabela()));
+        return tabela;
     }
     
     @Override
-    protected Node conteudoInicial() {
-        Navbar navbar = new Navbar();
-        
-        VBox conteudo = new VBox(navbar);
-        return conteudo;
+    protected TelaUtil getTelaAdicionar() {
+        return new TelaFormUsuario();
     }
     
 }
