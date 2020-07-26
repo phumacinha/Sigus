@@ -33,7 +33,7 @@ public class TelaInicial extends TelaUtil {
     VBox menu, detalhes;
     
     public TelaInicial() {
-        super("Sistema de Gerenciamento de Usuários de um Sistema | Sigus");
+        super("Sistema de Gerenciamento de Usuários de um Sistema");
     }
     
     private void inicializaMenu () {
@@ -45,6 +45,7 @@ public class TelaInicial extends TelaUtil {
         btnCargos.setOnMouseClicked(new TelaGerenciarCargos());
         
         Botao btnPerfis = new Botao("Gerenciar Perfis", 20, 300, 60);
+        btnPerfis.setOnMouseClicked(new TelaGerenciarPerfis());
         
         Botao btnUsuarios = new Botao("Gerenciar Usuários", 20, 300, 60);
         btnUsuarios.setOnMouseClicked(new TelaGerenciarUsuarios());
