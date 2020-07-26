@@ -28,11 +28,15 @@ import javafx.scene.paint.Color;
  * @author pedro
  */
 public class Botao extends Button {
-    private Color corPrincipal, corSecundaria;
-    private final int arco = 5;
+    protected Color corPrincipal, corSecundaria;
+    protected Color corPreenchimento;
+    protected final int ARCO = 5;
+    private boolean lightStyle = false;
     
     public Botao(String valor, double fontSize, double width, double height) {
         super(valor.toUpperCase());
+        corPreenchimento = Atributo.ROXO_PRINCIPAL;
+        
         setPrefSize(width, height);
         setFont(Atributo.getUbuntu(fontSize, Estilo.BOLD));
         setCursor(Cursor.HAND);
@@ -44,7 +48,7 @@ public class Botao extends Button {
             @Override
             public void handle(MouseEvent e) {
                 setTextFill(corSecundaria);
-                BackgroundFill bg = new BackgroundFill(corPrincipal, new CornerRadii(arco), Insets.EMPTY);
+                BackgroundFill bg = new BackgroundFill(corPrincipal, new CornerRadii(ARCO), Insets.EMPTY);
                 setBackground(new Background(bg));
             }
         });
@@ -59,15 +63,21 @@ public class Botao extends Button {
     }
     
     public void setLightStyle (boolean light) {
-        corPrincipal = light ? Color.WHITE : Atributo.ROXO_PRINCIPAL;
-        corSecundaria = light ? Atributo.ROXO_PRINCIPAL: Color.WHITE;
+        lightStyle = light;
+        corPrincipal = light ? Color.WHITE : corPreenchimento;
+        corSecundaria = light ? corPreenchimento: Color.WHITE;
         
         setTextFill(corPrincipal);
-        setBorder(new Border(new BorderStroke(corPrincipal, BorderStrokeStyle.SOLID, new CornerRadii(arco), new BorderWidths(1))));
+        setBorder(new Border(new BorderStroke(corPrincipal, BorderStrokeStyle.SOLID, new CornerRadii(ARCO), new BorderWidths(1))));
     }
     
     public final void setLightStyle () {
         setLightStyle(true);
+    }
+    
+    public void setCorPreenchimento (Color cor) {
+        corPreenchimento = cor;
+        setLightStyle(lightStyle);
     }
     
     public final void setOnMouseClicked(TelaUtil tela) {
