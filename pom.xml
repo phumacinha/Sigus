@@ -1,7 +1,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>com.estagiozetta</groupId>
+    <groupId>com</groupId>
     <artifactId>Sigus</artifactId>
     <version>1.0-SNAPSHOT</version>
     <properties>
@@ -10,7 +10,7 @@
         <maven.compiler.target>11</maven.compiler.target>
         <java.version>14</java.version>
         <javafx.version>14</javafx.version>
-        <main.class>com.estagiozetta.sigus.Main</main.class>
+        <main.class>com.sigus.Main</main.class>
     </properties>
     <dependencies>
         <dependency>
@@ -36,6 +36,12 @@
             <version>${javafx.version}</version>
             <classifier>mac</classifier>
         </dependency>
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>5.1.47</version>
+        </dependency>
+
     </dependencies>
     <build>
         <plugins>

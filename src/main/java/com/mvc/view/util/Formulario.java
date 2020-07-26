@@ -81,8 +81,8 @@ public class Formulario extends VBox {
         return new CampoCpf(nome);
     }
     
-    public CampoComboBox novoCampoComboBox (String nome) {
-        return new CampoComboBox(nome);
+    public CampoComboBox novoCampoComboBox (String nome, String opcaoNula) {
+        return new CampoComboBox(nome, opcaoNula);
     }
     
     public CampoCheckBox novoCampoCheckBox (String nome, String textoPadrao) {
@@ -124,7 +124,8 @@ public class Formulario extends VBox {
 
         @Override
         public String getValue () {
-            return campo.getText().trim();
+            String valor = campo.getText().trim();
+            return valor.length() > 0 ? valor : null;
         }
 
         public void setValue (String texto) {
@@ -147,7 +148,7 @@ public class Formulario extends VBox {
         
         @Override
         public String getValue () {
-            return campo.getText().trim();
+            return campo.getPlainText().trim().length() == 0 ? null : campo.getText().trim();
         }
     }
     
@@ -166,20 +167,25 @@ public class Formulario extends VBox {
         
         @Override
         public String getValue () {
-            return campo.getPlainText().trim();
+            return campo.getPlainText().trim().length() == 0
+                    ? null
+                    : campo.getPlainText().trim();
         }
     }
     
     public class CampoComboBox extends Campo {
         private final ComboBox combobox;
+        private final String opcaoNula;
         
-        public CampoComboBox (String nome) {
+        public CampoComboBox (String nome, String opcaoNula) {
             super(nome);
+            this.opcaoNula = opcaoNula;
             
             combobox = new ComboBox();
             combobox.setPrefHeight(40);
             combobox.getEditor().setFont(fontCampo);
-            
+            addItem(opcaoNula);
+            combobox.setValue(opcaoNula);
             addCampo(combobox);
         }
         
@@ -189,7 +195,10 @@ public class Formulario extends VBox {
         
         @Override
         public String getValue() {
-            return (String) combobox.getValue();
+            Object selecionado = combobox.getSelectionModel().getSelectedItem();
+            return (selecionado == null || selecionado.toString().equals(opcaoNula))
+                    ? null
+                    : selecionado.toString();
         }
     }
 
@@ -226,6 +235,7 @@ public class Formulario extends VBox {
             CheckBox checkbox = new CheckBox(opcao);
             checkbox.setFont(fontCampo);
             checkbox.setPrefHeight(40);
+            checkbox.isSelected();
             
             lista.add(checkbox);
             opcoes.getChildren().remove(texto);
@@ -234,7 +244,14 @@ public class Formulario extends VBox {
         
         @Override
         public Object getValue () {
-            return lista;
+            ArrayList<String> selecionados = new ArrayList<>();
+            
+            lista.forEach(opcao -> {
+                if (((CheckBox) opcao).isSelected())
+                    selecionados.add(((CheckBox) opcao).getText());
+            });
+            
+            return selecionados.isEmpty() ? null : selecionados;
         }
     }
 }

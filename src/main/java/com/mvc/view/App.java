@@ -53,4 +53,8 @@ public class App extends Application {
             primaryStage.setScene(tela.getScene());
         }
     }
+    
+    public static Stage getPrimaryStage() {
+        return primaryStage;
+    }
 }
