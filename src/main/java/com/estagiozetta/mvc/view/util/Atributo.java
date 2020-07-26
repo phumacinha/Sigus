@@ -18,12 +18,22 @@ import javafx.scene.text.Font;
 public class Atributo {
     public static final int SCENE_WIDTH = 1024;
     public static final int SCENE_HEIGHT = 576;
+    
     public static final Color ROXO_PRINCIPAL = Color.rgb(47, 58, 115);
     public static final Color ROXO_SECUNDARIO = Color.rgb(58, 47, 115);
     public static final LinearGradient ROXO_GRADIENTE = new LinearGradient(0, 0, 0, 1, true, CycleMethod.NO_CYCLE,
         new Stop[] {
             new Stop(0, Atributo.ROXO_SECUNDARIO),
             new Stop(1, Atributo.ROXO_PRINCIPAL)
+        }
+    ); 
+    public static final Color CINZA_CLARO = Color.rgb(224, 224, 224);
+    public static final Color CINZA_MEDIO = Color.rgb(175, 175, 175);
+    public static final Color CINZA_ESCURO = Color.rgb(150, 150, 150);
+    public static final LinearGradient CINZA_GRADIENTE = new LinearGradient(0, 0, 0, 1, true, CycleMethod.NO_CYCLE,
+        new Stop[] {
+            new Stop(0, Atributo.CINZA_CLARO),
+            new Stop(1, Atributo.CINZA_MEDIO)
         }
     ); 
     
