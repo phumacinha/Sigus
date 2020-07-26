@@ -8,16 +8,25 @@ package com.estagiozetta.mvc.view;
 import com.estagiozetta.mvc.view.util.Atributo;
 import com.estagiozetta.mvc.view.util.Botao;
 import com.estagiozetta.mvc.view.util.Navbar;
+import com.estagiozetta.mvc.view.util.OpcoesTabela;
+import com.estagiozetta.mvc.view.util.Tabela;
+import com.estagiozetta.mvc.view.util.Tabela.Celula;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.Border;
 import javafx.scene.layout.BorderStroke;
 import javafx.scene.layout.BorderStrokeStyle;
 import javafx.scene.layout.BorderWidths;
+import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -59,25 +68,79 @@ public class TelaGerenciarCargos extends TelaUtil {
         
         HBox cabecalho = new HBox(titulo, btnAdicionar);
         cabecalho.setPadding(new Insets(20, 0, 20, 0));
-        cabecalho.setBorder(new Border(new BorderStroke(Color.TRANSPARENT, Color.TRANSPARENT, Color.GRAY, Color.TRANSPARENT,
+        cabecalho.setBorder(new Border(new BorderStroke(Color.TRANSPARENT, Color.TRANSPARENT, Atributo.CINZA_MEDIO, Color.TRANSPARENT,
             BorderStrokeStyle.NONE, BorderStrokeStyle.NONE, BorderStrokeStyle.SOLID, BorderStrokeStyle.NONE,
             CornerRadii.EMPTY, new BorderWidths(1), Insets.EMPTY)));
         //</editor-fold>
         
         //<editor-fold defaultstate="collapsed" desc="dados">
-        GridPane dados = new GridPane();
-        dados.setPadding(new Insets(20, 0, 0, 0));
-        int qtd = 0;
+        //VBox dados = new VBox();
+        ScrollPane dados = new ScrollPane();
+        dados.pannableProperty().set(true);
+        dados.fitToWidthProperty().set(true);
+        dados.hbarPolicyProperty().setValue(ScrollPane.ScrollBarPolicy.NEVER);
+        dados.vbarPolicyProperty().setValue(ScrollPane.ScrollBarPolicy.AS_NEEDED);
+        dados.setBorder(Border.EMPTY);
+        dados.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
+        
+        int qtd = 1;
         if (qtd == 0) {
             Label nenhumResultado = new Label("Nenhum cargo cadastrado.");
             nenhumResultado.setTextFill(Atributo.ROXO_PRINCIPAL);
             nenhumResultado.setFont(Atributo.getUbuntu(14));
-            dados.getChildren().add(nenhumResultado);
+            nenhumResultado.setPadding(new Insets(20, 0, 0, 0));
+            
+            StackPane mensagem = new StackPane(nenhumResultado);
+            mensagem.setAlignment(Pos.CENTER_LEFT);
+            mensagem.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
+            dados.setContent(mensagem);
         }
+        else {
+            Tabela tabela = new Tabela();
+            HBox.setHgrow(tabela, Priority.ALWAYS);
+            
+            ColumnConstraints cons = new ColumnConstraints();
+            cons.setFillWidth(true);
+            cons.setHgrow(Priority.ALWAYS);
+            
+            tabela.addColuna(cons, "CARGO");
+            
+            cons = new ColumnConstraints();
+            cons.setHalignment(HPos.CENTER);
+            tabela.addColuna(new ColumnConstraints(), "OPCOES");
+            
+            tabela.addLinha(tabela.novaCelula("Estudante"), tabela.novaCelula(new OpcoesTabela()));
+            
+            OpcoesTabela op = new OpcoesTabela();
+            op.naoRemovivel();
+            tabela.addLinha(tabela.novaCelula("Professor"), tabela.novaCelula(op));
+            
+            tabela.addLinha(tabela.novaCelula("Estudante"), tabela.novaCelula(new OpcoesTabela()));
+            tabela.addLinha(tabela.novaCelula("Estudante"), tabela.novaCelula(new OpcoesTabela()));
+            tabela.addLinha(tabela.novaCelula("Estudante"), tabela.novaCelula(new OpcoesTabela()));
+            tabela.addLinha(tabela.novaCelula("Estudante"), tabela.novaCelula(new OpcoesTabela()));
+            tabela.addLinha(tabela.novaCelula("Estudante"), tabela.novaCelula(new OpcoesTabela()));
+            tabela.addLinha(tabela.novaCelula("Estudante"), tabela.novaCelula(new OpcoesTabela()));
+            tabela.addLinha(tabela.novaCelula("Estudante"), tabela.novaCelula(new OpcoesTabela()));
+            tabela.addLinha(tabela.novaCelula("Estudante"), tabela.novaCelula(new OpcoesTabela()));
+            tabela.addLinha(tabela.novaCelula("Estudante"), tabela.novaCelula(new OpcoesTabela()));
+            tabela.addLinha(tabela.novaCelula("Estudante"), tabela.novaCelula(new OpcoesTabela()));
+            tabela.addLinha(tabela.novaCelula("Estudante"), tabela.novaCelula(new OpcoesTabela()));
+            tabela.addLinha(tabela.novaCelula("Estudante"), tabela.novaCelula(new OpcoesTabela()));
+            tabela.addLinha(tabela.novaCelula("Estudante"), tabela.novaCelula(new OpcoesTabela()));
+            tabela.addLinha(tabela.novaCelula("Estudante"), tabela.novaCelula(new OpcoesTabela()));
+            tabela.addLinha(tabela.novaCelula("Estudante"), tabela.novaCelula(new OpcoesTabela()));
+            tabela.addLinha(tabela.novaCelula("Estudante"), tabela.novaCelula(new OpcoesTabela()));
+            tabela.addLinha(tabela.novaCelula("Estudante"), tabela.novaCelula(new OpcoesTabela()));
+            tabela.addLinha(tabela.novaCelula("Estudante"), tabela.novaCelula(new OpcoesTabela()));
+            dados.setContent(tabela);
+
+        }
+        
         //</editor-fold>
         
         VBox conteudo = new VBox(cabecalho, dados);
-        conteudo.setPadding(new Insets(0, 40, 0, 40));
+        conteudo.setPadding(new Insets(0, 40, 40, 40));
         HBox.setHgrow(conteudo, Priority.ALWAYS);
         
         VBox tela = new VBox(new Navbar(), conteudo);
@@ -85,5 +148,4 @@ public class TelaGerenciarCargos extends TelaUtil {
         HBox.setHgrow(tela, Priority.ALWAYS);
         return tela;
     }
-    
 }
