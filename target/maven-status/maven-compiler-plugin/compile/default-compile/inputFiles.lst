@@ -1,5 +1,6 @@
 /home/pedro/Documentos/Estágio Zetta/Sigus/src/main/java/com/mvc/view/util/Navbar.java
 /home/pedro/Documentos/Estágio Zetta/Sigus/src/main/java/com/mvc/view/TelaInicial.java
+/home/pedro/Documentos/Estágio Zetta/Sigus/src/main/java/com/mvc/model/PerfilUsuario.java
 /home/pedro/Documentos/Estágio Zetta/Sigus/src/main/java/com/mvc/view/util/Formulario.java
 /home/pedro/Documentos/Estágio Zetta/Sigus/src/main/java/com/mvc/view/TelaUtil.java
 /home/pedro/Documentos/Estágio Zetta/Sigus/src/main/java/com/mvc/view/util/OpcoesTabela.java
@@ -13,10 +14,12 @@
 /home/pedro/Documentos/Estágio Zetta/Sigus/src/main/java/com/mvc/view/TelaGerenciarAbstrata.java
 /home/pedro/Documentos/Estágio Zetta/Sigus/src/main/java/com/dao/ExceptionDAO.java
 /home/pedro/Documentos/Estágio Zetta/Sigus/src/main/java/com/dao/CargoDAO.java
+/home/pedro/Documentos/Estágio Zetta/Sigus/src/main/java/com/dao/UsuarioDAO.java
 /home/pedro/Documentos/Estágio Zetta/Sigus/src/main/java/com/mvc/controller/PerfilController.java
 /home/pedro/Documentos/Estágio Zetta/Sigus/src/main/java/com/mvc/view/App.java
 /home/pedro/Documentos/Estágio Zetta/Sigus/src/main/java/com/dao/Conexao.java
 /home/pedro/Documentos/Estágio Zetta/Sigus/src/main/java/com/mvc/view/TelaGerenciarUsuarios.java
+/home/pedro/Documentos/Estágio Zetta/Sigus/src/main/java/com/mvc/controller/PerfilUsuarioController.java
 /home/pedro/Documentos/Estágio Zetta/Sigus/src/main/java/com/mvc/view/TelaGerenciarPerfis.java
 /home/pedro/Documentos/Estágio Zetta/Sigus/src/main/java/com/mvc/controller/UsuarioController.java
 /home/pedro/Documentos/Estágio Zetta/Sigus/src/main/java/com/mvc/model/Cargo.java

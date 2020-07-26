@@ -14,39 +14,28 @@ import com.dao.ExceptionDAO;
  */
 public class Cargo {
     private String nome;
-    private Usuario usuario;
-    
-    public Cargo (String nome, Usuario usuario) {
-        this.nome = nome;
-        this.usuario = usuario;
-    }
     
     public Cargo (String nome) {
         this.nome = nome;
-        this.usuario = null;
     }
     
     public String getNome () {
         return nome;
     }
     
-    public Usuario getUsuario() {
-        return usuario;
-    }
-    
-    public String getCpfUsuario () {
-        return usuario == null ? null : usuario.getCpf();
-    }
-    
     public void setNome(String nome) {
         this.nome = nome;
     }
     
-    public void setUsuario (Usuario usuario) {
-        this.usuario = usuario;
+    public void cadastrar () throws ExceptionDAO {
+        new CargoDAO().cadastrar(this);
     }
     
-    public void cadastrar (Cargo cargo) throws ExceptionDAO {
-        new CargoDAO().cadastrar(cargo);
+    public void remover () throws ExceptionDAO {
+        new CargoDAO().remover(this);
+    }
+    
+    public void alterar (Cargo novo) throws ExceptionDAO {
+        new CargoDAO().alterar(this, novo);
     }
 }

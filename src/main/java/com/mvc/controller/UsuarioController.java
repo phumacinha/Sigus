@@ -5,6 +5,8 @@
  */
 package com.mvc.controller;
 
+import com.dao.ExceptionDAO;
+import com.dao.UsuarioDAO;
 import com.mvc.model.Cargo;
 import com.mvc.model.Perfil;
 import com.mvc.model.Usuario;
@@ -14,13 +16,15 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.InputMismatchException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
  * @author pedro
  */
 public class UsuarioController {
-    public boolean cadastrar (String nome, String cpf, String dataNascimento, Character sexo, Cargo cargo, ArrayList<Perfil> perfis) {
+    public boolean cadastrar (String nome, String cpf, String dataNascimento, String sexo, Cargo cargo, ArrayList<Perfil> perfis) {
         if (nome != null && nome.length() > 0
             && cpf != null && validaCpf(cpf)
             && (sexo == null || sexo.equals('M') || sexo.equals('F'))   
@@ -37,13 +41,21 @@ public class UsuarioController {
                 }
             }
             
-            Usuario usuario = new Usuario(nome, cpf, dataNascimento, sexo, cargo, perfis);
+            Usuario usuario = new Usuario(nome, cpf, dataNascimento, sexo, cargo);
             return true;
         }
         return false;
     }
     
-    public boolean validaCpf(String cpf) {
+    public void selecionarUsuarioPorCpf (String cpf) {
+        try {
+            new UsuarioDAO().selecionarUsuarioPorCpf(cpf);
+        } catch (ExceptionDAO ex) {
+            Logger.getLogger(UsuarioController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    private boolean validaCpf(String cpf) {
         // Autor Omero
         // Código disponível em https://www.devmedia.com.br/validando-o-cpf-em-uma-aplicacao-java/22097
         

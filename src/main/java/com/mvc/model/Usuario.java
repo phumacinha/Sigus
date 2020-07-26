@@ -15,19 +15,17 @@ public class Usuario {
     private String nome;
     private String cpf;
     private String dataNascimento = null;
-    private Character sexo = null;
+    private String sexo = null;
     private Cargo cargo;
-    private ArrayList<Perfil> perfis = null;
     
     public Usuario() {}
     
-    public Usuario (String nome, String cpf, String dataNascimento, Character sexo, Cargo cargo, ArrayList<Perfil> perfis) {
+    public Usuario (String nome, String cpf, String dataNascimento, String sexo, Cargo cargo) {
         this.nome = nome;
         this.cpf = cpf;
         this.dataNascimento = dataNascimento;
         this.sexo = sexo;
         this.cargo = cargo;
-        this.perfis = perfis;
     }
 
     public String getNome() {
@@ -42,19 +40,13 @@ public class Usuario {
         return dataNascimento;
     }
 
-    public Character getSexo() {
+    public String getSexo() {
         return sexo;
     }
 
     public Cargo getCargo() {
         return cargo;
-    }
-
-    public ArrayList<Perfil> getPerfis() {
-        return perfis;
-    }
-    
-    
+    }  
 
     public void setNome(String nome) {
         this.nome = nome;
@@ -68,19 +60,15 @@ public class Usuario {
         this.dataNascimento = dataNascimento;
     }
 
-    public void setSexo(Character sexo) {
+    public void setSexo(String sexo) {
         this.sexo = sexo;
     }
 
     public void setCargo(Cargo cargo) {
         this.cargo = cargo;
     }
-
-    public void setPerfis(ArrayList<Perfil> perfis) {
-        this.perfis = perfis;
-    }
     
-    public void cadastrarUsuario() {
+    public void cadastrar() {
         
     }
     

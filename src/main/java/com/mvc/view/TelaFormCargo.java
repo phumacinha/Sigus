@@ -6,10 +6,12 @@
 package com.mvc.view;
 
 import com.mvc.controller.CargoController;
+import com.mvc.model.Cargo;
 import com.mvc.view.util.Atributo;
 import com.mvc.view.util.Botao;
 import com.mvc.view.util.Formulario;
 import com.mvc.view.util.Formulario.Campo;
+import com.mvc.view.util.Formulario.CampoTexto;
 import com.mvc.view.util.Logotipo;
 import java.sql.Connection;
 import java.util.logging.Level;
@@ -34,12 +36,12 @@ import javafx.stage.StageStyle;
  * @author pedro
  */
 public class TelaFormCargo extends TelaUtil {
-    private Integer idCargo = null;
+    private Cargo cargo = null;
     private String acao;
     
-    public TelaFormCargo(int id) {
+    public TelaFormCargo(Cargo cargo) {
         super("Editar cargo");
-        idCargo = id;
+        this.cargo = cargo;
         acao = "Editar cargo";
         setTamanhoExato();
     }
@@ -60,17 +62,18 @@ public class TelaFormCargo extends TelaUtil {
         
         Formulario formulario = new Formulario(acao);
         
-        Campo nome = formulario.novoCampoTexto("Nome do cargo");
+        CampoTexto nome = formulario.novoCampoTexto("Nome do cargo");
+        if (cargo != null) {nome.setValue(cargo.getNome()); }
         formulario.addCampo(nome);
         
-        Botao cadastrar = new Botao("Cadastrar", 15, 120, 40);
-        cadastrar.setPreenchido();
-        cadastrar.setOnMouseClicked(new EventHandler<MouseEvent>() {
+        Botao confirmar = new Botao("Confirmar", 15, 120, 40);
+        confirmar.setPreenchido();
+        confirmar.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent e) {
                 String valNome = nome.getValue() == null ? "" : (String) nome.getValue();
-                System.out.println(valNome);
-                cadastrarCargo(valNome);
+                if (cargo != null) alterarCargo(cargo.getNome(), valNome);
+                else cadastrarCargo(valNome);
             }
         });
         
@@ -85,7 +88,7 @@ public class TelaFormCargo extends TelaUtil {
             }
         });
         
-        formulario.addRodape(cancelar, cadastrar);
+        formulario.addRodape(cancelar, confirmar);
         
         VBox conteudo = new VBox(formulario);
         conteudo.setPadding(new Insets(0, 40, 40, 40));
@@ -108,7 +111,7 @@ public class TelaFormCargo extends TelaUtil {
         
         try {
             CargoController cargoController = new CargoController();
-            sucesso = cargoController.cadastrar(nome, null);
+            sucesso = cargoController.cadastrar(nome);
                 
             if (sucesso) {
                 alerta.setAlertType(Alert.AlertType.INFORMATION);
@@ -135,6 +138,51 @@ public class TelaFormCargo extends TelaUtil {
         catch (Exception ex) {
             alerta.setAlertType(Alert.AlertType.ERROR);
             alerta.setTitle("Erro ao cadastrar o cargo");
+            alerta.setHeaderText(null);
+            alerta.setContentText("Houve um erro interno. Por favor, tente novamente.");
+            Logger.getLogger(Connection.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        alerta.showAndWait();
+    }
+    
+    private void alterarCargo (String nomeAntigo, String nomeNovo) {
+        boolean sucesso;
+        
+        Alert alerta = new Alert(Alert.AlertType.NONE);
+        alerta.initStyle(StageStyle.UTILITY);
+        alerta.setHeaderText(null);
+        alerta.setResult(ButtonType.CLOSE);
+        
+        try {
+            CargoController cargoController = new CargoController();
+            sucesso = cargoController.alterar(nomeAntigo, nomeNovo);
+                
+            if (sucesso) {
+                alerta.setAlertType(Alert.AlertType.INFORMATION);
+                alerta.setTitle("Cargo alterado");
+                alerta.setContentText("Cargo alterado com sucesso.");
+                alerta.setOnCloseRequest(new EventHandler<DialogEvent>() {
+                    @Override
+                    public void handle(DialogEvent t) {
+                        getStage().close();
+                        App.abrirTela(new TelaGerenciarCargos());
+                    }
+                    
+                });
+            }
+            else {
+                alerta.setAlertType(Alert.AlertType.ERROR);
+                alerta.setTitle("Erro ao alterar o cargo");
+                alerta.setHeaderText("Erro ao alterar o cargo.");
+                alerta.setContentText("Verifique o nome e tente novamente.");
+            }
+            
+            
+        }
+        catch (Exception ex) {
+            alerta.setAlertType(Alert.AlertType.ERROR);
+            alerta.setTitle("Erro ao alterar o cargo");
             alerta.setHeaderText(null);
             alerta.setContentText("Houve um erro interno. Por favor, tente novamente.");
             Logger.getLogger(Connection.class.getName()).log(Level.SEVERE, null, ex);

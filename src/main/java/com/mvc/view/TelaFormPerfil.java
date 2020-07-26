@@ -104,7 +104,7 @@ public class TelaFormPerfil extends TelaUtil {
         
         try {
             PerfilController perfilController = new PerfilController();
-            sucesso = perfilController.cadastrar(nome, null);
+            sucesso = perfilController.cadastrarPerfil(nome);
                 
             if (sucesso) {
                 alerta.setAlertType(Alert.AlertType.INFORMATION);

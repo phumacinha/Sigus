@@ -13,9 +13,9 @@ import com.mvc.model.Usuario;
  * @author pedro
  */
 public class PerfilController {
-    public boolean cadastrar (String nome, Usuario usuario) {
+    public boolean cadastrarPerfil (String nome) {
         if (nome != null && nome.length() > 0) {
-            Perfil perfil = new Perfil(nome, usuario);
+            Perfil perfil = new Perfil(nome);
             perfil.cadastrar();
             return true;
         } 

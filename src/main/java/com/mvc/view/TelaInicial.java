@@ -5,6 +5,8 @@
  */
 package com.mvc.view;
 
+import com.mvc.controller.CargoController;
+import com.mvc.controller.UsuarioController;
 import com.mvc.view.util.Atributo;
 import com.mvc.view.util.Botao;
 import com.mvc.view.util.Logotipo;
@@ -83,8 +85,8 @@ public class TelaInicial extends TelaUtil {
         Text tituloQuantidade = new Text("Quantidade de cadastros no Sigus");
         tituloQuantidade.setFont(Atributo.getUbuntu(20, Atributo.Estilo.BOLD));
         tituloQuantidade.setFill(Atributo.ROXO_PRINCIPAL);
-        
-        QuantidadeCadastro qtdCargos = new QuantidadeCadastro(20, "cargo", "cargos");
+        new UsuarioController().selecionarUsuarioPorCpf("11587306670");
+        QuantidadeCadastro qtdCargos = new QuantidadeCadastro(new CargoController().quantidadeCargos(), "cargo", "cargos");
         QuantidadeCadastro qtdPerfis = new QuantidadeCadastro(3, "perfil", "perfis");
         QuantidadeCadastro qtdUsuarios = new QuantidadeCadastro(12, "usuário", "usuários");
         

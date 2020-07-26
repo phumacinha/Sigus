@@ -97,7 +97,7 @@ public class TelaFormUsuario extends TelaUtil {
                 String valNome = nome.getValue() == null ? null : (String) nome.getValue();
                 String valCpf = cpf.getValue() == null ? null : (String) cpf.getValue();
                 String valDataNascimento = dataNascimento.getValue() == null ? null : (String) dataNascimento.getValue();
-                Character valSexo = sexo.getValue() == null ? null : sexo.getValue().charAt(0);
+                String valSexo = sexo.getValue() == null ? null : sexo.getValue();
                 Cargo valCargo = cargo.getValue() == null ? null : new Cargo(cargo.getValue()); 
                 ArrayList<String> valPerfisAux = perfis.getValue() == null ? null : (ArrayList<String>) perfis.getValue();
                 ArrayList<Perfil> valPerfis = valPerfisAux == null ? null : new ArrayList<>();
@@ -135,7 +135,7 @@ public class TelaFormUsuario extends TelaUtil {
         return tela;
     }
     
-    private void cadastrarUsuario (String nome, String cpf, String dataNascimento, Character sexo, Cargo cargo, ArrayList<Perfil> perfis) {
+    private void cadastrarUsuario (String nome, String cpf, String dataNascimento, String sexo, Cargo cargo, ArrayList<Perfil> perfis) {
         boolean sucesso = false;
         
         Alert alerta = new Alert(Alert.AlertType.NONE);
