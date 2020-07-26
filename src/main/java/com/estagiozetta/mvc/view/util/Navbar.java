@@ -44,6 +44,8 @@ public class Navbar extends HBox {
         setBackground(new Background(bg));
         setAlignment(Pos.CENTER);
         setPrefHeight(64);
+        setMinHeight(64);
+        setMaxHeight(64);
         setSpacing(30);
         setPadding(new Insets(0, 40, 0, 40));
         getChildren().addAll(logo, btnCargos, btnPerfis, btnUsuarios, btnVoltar);
