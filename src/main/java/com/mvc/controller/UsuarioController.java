@@ -6,13 +6,17 @@
 package com.mvc.controller;
 
 import com.dao.ExceptionDAO;
+import com.dao.PerfilDAO;
+import com.dao.PerfilUsuarioDAO;
 import com.dao.UsuarioDAO;
 import com.mvc.model.Cargo;
 import com.mvc.model.Perfil;
+import com.mvc.model.PerfilUsuario;
 import com.mvc.model.Usuario;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.InputMismatchException;
@@ -30,28 +34,60 @@ public class UsuarioController {
             && (sexo == null || sexo.equals('M') || sexo.equals('F'))   
             && cargo != null) {
             
-            if (dataNascimento != null && dataNascimento.trim().length() > 0) {
-                try {
-                    DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-                    Date date = (Date)formatter.parse(dataNascimento.trim());
-                    formatter = new SimpleDateFormat("yyyy-MM-dd");
-                    dataNascimento = formatter.format(date);
-                } catch (ParseException ex) {
-                    return false;
+            String data = dataNascimento == null ? null : dataNascimento.toString();
+            try {
+                Usuario usuario = new Usuario(nome, cpf, data, sexo, cargo);
+                usuario.cadastrar();
+                
+                for (Perfil perfil : perfis) {
+                    PerfilUsuario relacionamento = new PerfilUsuario(perfil, usuario);
+                    relacionamento.salvarRelacionamento();
                 }
+                
+                return true;
             }
-            
-            Usuario usuario = new Usuario(nome, cpf, dataNascimento, sexo, cargo);
-            return true;
+            catch (ExceptionDAO ex) {
+                return false;
+            }
         }
         return false;
     }
     
-    public void selecionarUsuarioPorCpf (String cpf) {
+    public boolean alterar(Usuario antigo, Usuario novo, ArrayList<Perfil> perfis) {
         try {
-            new UsuarioDAO().selecionarUsuarioPorCpf(cpf);
+            new PerfilUsuarioDAO().removerPerfisUsuario(antigo);
+            antigo.alterar(novo);
+            for (Perfil perfil : perfis) {
+                PerfilUsuario relacionamento = new PerfilUsuario(perfil, novo);
+                relacionamento.salvarRelacionamento();
+            }
+            return true;
         } catch (ExceptionDAO ex) {
-            Logger.getLogger(UsuarioController.class.getName()).log(Level.SEVERE, null, ex);
+           return false;
+        }
+    }
+
+    public int quantidadeTotal() {
+        try {
+            return new UsuarioDAO().quantidadeTotal();
+        } catch (ExceptionDAO ex) {
+            return 0;
+        }
+    }
+
+    public ArrayList<Usuario> retornaTodos() {
+        try {
+            return new UsuarioDAO().retornaTodos();
+        } catch (ExceptionDAO ex) {
+            return null;
+        }
+    }
+    
+    public Usuario selecionarUsuarioPorCpf (String cpf) {
+        try {
+            return new UsuarioDAO().usuarioPorCpf(cpf);
+        } catch (ExceptionDAO ex) {
+            return null;
         }
     }
     

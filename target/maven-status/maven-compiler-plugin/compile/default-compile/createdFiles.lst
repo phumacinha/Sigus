@@ -16,7 +16,9 @@ com/mvc/view/TelaFormCargo$4.class
 com/mvc/view/TelaInicial.class
 com/mvc/view/TelaGerenciarUsuarios.class
 com/mvc/view/util/Logotipo.class
+com/mvc/view/TelaGerenciarPerfis$1.class
 com/mvc/view/util/Atributo.class
+com/dao/PerfilUsuarioDAO.class
 com/mvc/view/TelaFormCargo$1.class
 com/mvc/view/util/MaskedTextField$MaskCharacter.class
 com/mvc/view/util/Formulario$CampoData.class
@@ -38,6 +40,7 @@ com/mvc/view/util/MaskedTextField$NumericCharacter.class
 com/mvc/view/TelaUtil.class
 com/mvc/view/TelaFormUsuario$2.class
 com/mvc/view/util/Navbar.class
+com/dao/PerfilDAO.class
 com/sigus/SystemInfo.class
 com/mvc/view/util/MaskedTextField$MaskFactory.class
 com/mvc/view/util/Botao$3.class
@@ -46,6 +49,7 @@ com/mvc/view/util/Formulario.class
 com/mvc/view/util/Atributo$1.class
 com/mvc/view/TelaFormCargo$2.class
 com/mvc/view/util/OpcoesTabela$BotaoTabela.class
+com/mvc/view/TelaFormPerfil$4.class
 com/mvc/view/TelaFormPerfil.class
 com/mvc/view/util/Botao.class
 com/mvc/model/Perfil.class

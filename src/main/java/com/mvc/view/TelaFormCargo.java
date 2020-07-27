@@ -10,12 +10,8 @@ import com.mvc.model.Cargo;
 import com.mvc.view.util.Atributo;
 import com.mvc.view.util.Botao;
 import com.mvc.view.util.Formulario;
-import com.mvc.view.util.Formulario.Campo;
 import com.mvc.view.util.Formulario.CampoTexto;
 import com.mvc.view.util.Logotipo;
-import java.sql.Connection;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -37,7 +33,7 @@ import javafx.stage.StageStyle;
  */
 public class TelaFormCargo extends TelaUtil {
     private Cargo cargo = null;
-    private String acao;
+    private final String acao;
     
     public TelaFormCargo(Cargo cargo) {
         super("Editar cargo");
@@ -140,7 +136,6 @@ public class TelaFormCargo extends TelaUtil {
             alerta.setTitle("Erro ao cadastrar o cargo");
             alerta.setHeaderText(null);
             alerta.setContentText("Houve um erro interno. Por favor, tente novamente.");
-            Logger.getLogger(Connection.class.getName()).log(Level.SEVERE, null, ex);
         }
         
         alerta.showAndWait();
@@ -185,7 +180,6 @@ public class TelaFormCargo extends TelaUtil {
             alerta.setTitle("Erro ao alterar o cargo");
             alerta.setHeaderText(null);
             alerta.setContentText("Houve um erro interno. Por favor, tente novamente.");
-            Logger.getLogger(Connection.class.getName()).log(Level.SEVERE, null, ex);
         }
         
         alerta.showAndWait();

@@ -5,15 +5,22 @@
  */
 package com.mvc.view;
 
+import com.mvc.controller.CargoController;
+import com.mvc.controller.PerfilController;
+import com.mvc.controller.PerfilUsuarioController;
 import com.mvc.controller.UsuarioController;
 import com.mvc.model.Cargo;
 import com.mvc.model.Perfil;
+import com.mvc.model.Usuario;
 import com.mvc.view.util.Atributo;
 import com.mvc.view.util.Botao;
 import com.mvc.view.util.Formulario;
 import com.mvc.view.util.Formulario.Campo;
 import com.mvc.view.util.Formulario.CampoCheckBox;
 import com.mvc.view.util.Formulario.CampoComboBox;
+import com.mvc.view.util.Formulario.CampoCpf;
+import com.mvc.view.util.Formulario.CampoData;
+import com.mvc.view.util.Formulario.CampoTexto;
 import com.mvc.view.util.Logotipo;
 import java.util.ArrayList;
 import javafx.event.EventHandler;
@@ -36,12 +43,12 @@ import javafx.stage.StageStyle;
  * @author pedro
  */
 public class TelaFormUsuario extends TelaUtil {
-    private Integer idUsuario = null;
+    private Usuario usuario = null;
     private String acao;
     
-    public TelaFormUsuario (int id) {
+    public TelaFormUsuario (Usuario usuario) {
         super("Editar usuário");
-        idUsuario = id;
+        this.usuario = usuario;
         acao = "Editar usuário";
         setTamanhoExato();
     }
@@ -63,30 +70,51 @@ public class TelaFormUsuario extends TelaUtil {
         
         Formulario formulario = new Formulario(acao);
         
-        Campo nome = formulario.novoCampoTexto("Nome completo*");
+        CampoTexto nome = formulario.novoCampoTexto("Nome completo*");
+        if (usuario != null) { nome.setValue(usuario.getNome()); }
         formulario.addCampo(nome);
         
-        Campo cpf = formulario.novoCampoCpf("CPF*");
+        CampoTexto cpf = formulario.novoCampoTexto("CPF*");
+        if (usuario != null) { cpf.setValue(usuario.getCpf()); }
         formulario.addCampo(cpf);
         
-        Campo dataNascimento = formulario.novoCampoData("Data de Nascimento");
+        CampoData dataNascimento = formulario.novoCampoData("Data de Nascimento");
+        if (usuario != null) { dataNascimento.setValue(usuario.getDataNascimento()); }
         formulario.addCampo(dataNascimento);
         
         CampoComboBox sexo = formulario.novoCampoComboBox("Sexo", "Prefiro não informar");
         sexo.addItem("M");
         sexo.addItem("F");
+        if (usuario != null) { sexo.setValue(usuario.getSexo()); }
         formulario.addCampo(sexo);        
         
-        CampoComboBox cargo = formulario.novoCampoComboBox("Cargo*", "Selecione um cargo");
-        cargo.addItem("Cargo 1");
-        cargo.addItem("Cargo 2");
-        cargo.addItem("Cargo 3");
-        formulario.addCampo(cargo);
+        CampoComboBox campoCargo = formulario.novoCampoComboBox("Cargo*", "Selecione um cargo");
+        ArrayList<Cargo> cargos = new CargoController().retornaTodos();
+        cargos.forEach(cargo -> {
+            campoCargo.addItem(cargo.getNome());
+        });
+        if (usuario != null) { campoCargo.setValue(usuario.getCargo().getNome()); }
+        formulario.addCampo(campoCargo);
         
-        CampoCheckBox perfis = formulario.novoCampoCheckBox("Perfis", "Ainda não há perfis cadastrados.");
-        perfis.addOpcao("Teste");
-        perfis.addOpcao("Teste 2");
-        formulario.addCampo(perfis);
+        CampoCheckBox campoPerfil = formulario.novoCampoCheckBox("Perfis", "Ainda não há perfis cadastrados.");
+        ArrayList<Perfil> perfis = new PerfilController().retornaTodos();
+        ArrayList<Perfil> perfisUsuario = new ArrayList<>();
+        ArrayList<String> relacoes = new ArrayList<>();
+         
+        if (usuario != null) {
+            perfisUsuario = new PerfilUsuarioController().retornarPerfisUsuario(usuario);
+            perfisUsuario.forEach(perfil -> {
+                relacoes.add(perfil.getNome());
+            });
+        
+        }
+        
+        for (Perfil perfil : perfis) {
+            campoPerfil.addOpcao(perfil.getNome(), relacoes.contains(perfil.getNome()));
+            
+        }
+        
+        formulario.addCampo(campoPerfil);
         
         
         Botao cadastrar = new Botao("Cadastrar", 15, 120, 40);
@@ -94,21 +122,26 @@ public class TelaFormUsuario extends TelaUtil {
         cadastrar.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent e) {
-                String valNome = nome.getValue() == null ? null : (String) nome.getValue();
-                String valCpf = cpf.getValue() == null ? null : (String) cpf.getValue();
-                String valDataNascimento = dataNascimento.getValue() == null ? null : (String) dataNascimento.getValue();
-                String valSexo = sexo.getValue() == null ? null : sexo.getValue();
-                Cargo valCargo = cargo.getValue() == null ? null : new Cargo(cargo.getValue()); 
-                ArrayList<String> valPerfisAux = perfis.getValue() == null ? null : (ArrayList<String>) perfis.getValue();
-                ArrayList<Perfil> valPerfis = valPerfisAux == null ? null : new ArrayList<>();
+                String valNome = nome.getValue();
+                String valCpf = cpf.getValue();
+                String valDataNascimento = dataNascimento.getValue();
+                String valSexo = sexo.getValue();
+                Cargo valCargo = new Cargo(campoCargo.getValue()); 
+                ArrayList<String> valPerfisAux = campoPerfil.getValue();
+                ArrayList<Perfil> valPerfis = new ArrayList<>();
                 
-                if (valPerfisAux != null && valPerfis != null) {
+                if (!valPerfisAux.isEmpty()) {
                     valPerfisAux.forEach(perfil -> {
                         valPerfis.add(new Perfil(perfil));
                     });
                 }
                 
-                cadastrarUsuario(valNome, valCpf, valDataNascimento, valSexo, valCargo, valPerfis);
+                System.out.println(valNome);
+                System.out.println(valCpf);
+                System.out.println(valDataNascimento);
+                System.out.println(valSexo);
+                System.out.println(valCargo);
+                System.out.println(valPerfis);
             }
         });
         

@@ -90,7 +90,6 @@ public class CargoDAO {
             pStatement = connection.prepareStatement(sql);
             pStatement.setString(1, novo.getNome());
             pStatement.setString(2, antigo.getNome());
-            System.out.println("UPDATE cargo SET nome = '"+novo.getNome()+"' WHERE nome = '"+antigo.getNome()+"';");
             pStatement.execute();
         }
         catch (SQLException ex) {
@@ -114,7 +113,7 @@ public class CargoDAO {
         
     }
     
-    public int quantidadeCargos() throws ExceptionDAO {
+    public int quantidadeTotal() throws ExceptionDAO {
         String sql = "SELECT COUNT(nome) FROM cargo;";
         PreparedStatement pStatement = null;
         Connection connection = null;
@@ -129,7 +128,7 @@ public class CargoDAO {
             }
         }
         catch (SQLException ex) {
-            throw new ExceptionDAO("Erro ao cadastrar cargo: " + ex);
+            throw new ExceptionDAO("Erro ao contar cargos: " + ex);
         }
         finally {
             try {
@@ -150,8 +149,8 @@ public class CargoDAO {
         return qtd;
     }
     
-    public ArrayList<Cargo> retornaCargos () throws ExceptionDAO {
-        String sql = "SELECT * FROM cargo ORDER BY nome ASC;";
+    public ArrayList<Cargo> retornaTodos () throws ExceptionDAO {
+        String sql = "SELECT nome FROM cargo ORDER BY nome ASC;";
         PreparedStatement pStatement = null;
         Connection connection = null;
         

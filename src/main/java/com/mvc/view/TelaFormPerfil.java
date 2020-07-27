@@ -6,10 +6,11 @@
 package com.mvc.view;
 
 import com.mvc.controller.PerfilController;
+import com.mvc.model.Perfil;
 import com.mvc.view.util.Atributo;
 import com.mvc.view.util.Botao;
 import com.mvc.view.util.Formulario;
-import com.mvc.view.util.Formulario.Campo;
+import com.mvc.view.util.Formulario.CampoTexto;
 import com.mvc.view.util.Logotipo;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -31,12 +32,12 @@ import javafx.stage.StageStyle;
  * @author pedro
  */
 public class TelaFormPerfil extends TelaUtil {
-    private Integer idPerfil = null;
-    private String acao;
+    private Perfil perfil = null;
+    private final String acao;
     
-    public TelaFormPerfil(int id) {
+    public TelaFormPerfil(Perfil perfil) {
         super("Editar perfil");
-        idPerfil = id;
+        this.perfil = perfil;
         acao = "Editar perfil";
         setTamanhoExato();
     }
@@ -57,16 +58,18 @@ public class TelaFormPerfil extends TelaUtil {
         
         Formulario formulario = new Formulario(acao);
         
-        Campo nome = formulario.novoCampoTexto("Nome do perfil");
+        CampoTexto nome = formulario.novoCampoTexto("Nome do perfil");
+        if (perfil != null) {nome.setValue(perfil.getNome()); }
         formulario.addCampo(nome);
         
-        Botao cadastrar = new Botao("Cadastrar", 15, 120, 40);
-        cadastrar.setPreenchido();
-        cadastrar.setOnMouseClicked(new EventHandler<MouseEvent>() {
+        Botao confirmar = new Botao("Confirmar", 15, 120, 40);
+        confirmar.setPreenchido();
+        confirmar.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent e) {
                 String valNome = nome.getValue() == null ? null : (String) nome.getValue();
-                cadastrarPerfil(valNome);
+                if (perfil != null) alterarPerfil(perfil.getNome(), valNome);
+                else cadastrarPerfil(valNome);
             }
         });
         
@@ -81,7 +84,7 @@ public class TelaFormPerfil extends TelaUtil {
             }
         });
         
-        formulario.addRodape(cancelar, cadastrar);
+        formulario.addRodape(cancelar, confirmar);
         
         VBox conteudo = new VBox(formulario);
         conteudo.setPadding(new Insets(0, 40, 40, 40));
@@ -104,7 +107,7 @@ public class TelaFormPerfil extends TelaUtil {
         
         try {
             PerfilController perfilController = new PerfilController();
-            sucesso = perfilController.cadastrarPerfil(nome);
+            sucesso = perfilController.cadastrar(nome);
                 
             if (sucesso) {
                 alerta.setAlertType(Alert.AlertType.INFORMATION);
@@ -138,4 +141,48 @@ public class TelaFormPerfil extends TelaUtil {
         alerta.showAndWait();
     }
     
+    
+    private void alterarPerfil (String nomeAntigo, String nomeNovo) {
+        boolean sucesso;
+        
+        Alert alerta = new Alert(Alert.AlertType.NONE);
+        alerta.initStyle(StageStyle.UTILITY);
+        alerta.setHeaderText(null);
+        alerta.setResult(ButtonType.CLOSE);
+        
+        try {
+            PerfilController perfilController = new PerfilController();
+            sucesso = perfilController.alterar(nomeAntigo, nomeNovo);
+                
+            if (sucesso) {
+                alerta.setAlertType(Alert.AlertType.INFORMATION);
+                alerta.setTitle("Perfil alterado");
+                alerta.setContentText("Perfil alterado com sucesso.");
+                alerta.setOnCloseRequest(new EventHandler<DialogEvent>() {
+                    @Override
+                    public void handle(DialogEvent t) {
+                        getStage().close();
+                        App.abrirTela(new TelaGerenciarPerfis());
+                    }
+                    
+                });
+            }
+            else {
+                alerta.setAlertType(Alert.AlertType.ERROR);
+                alerta.setTitle("Erro ao alterar o perfil");
+                alerta.setHeaderText("Erro ao alterar o perfil.");
+                alerta.setContentText("Verifique o nome e tente novamente.");
+            }
+            
+            
+        }
+        catch (Exception ex) {
+            alerta.setAlertType(Alert.AlertType.ERROR);
+            alerta.setTitle("Erro ao alterar o perfil");
+            alerta.setHeaderText(null);
+            alerta.setContentText("Houve um erro interno. Por favor, tente novamente.");
+        }
+        
+        alerta.showAndWait();
+    }
 }

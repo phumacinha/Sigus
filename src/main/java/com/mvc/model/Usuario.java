@@ -5,6 +5,8 @@
  */
 package com.mvc.model;
 
+import com.dao.ExceptionDAO;
+import com.dao.UsuarioDAO;
 import java.util.ArrayList;
 
 /**
@@ -68,10 +70,11 @@ public class Usuario {
         this.cargo = cargo;
     }
     
-    public void cadastrar() {
-        
+    public void cadastrar() throws ExceptionDAO {
+        new UsuarioDAO().cadastrar(this);
     }
     
-    
-    
+    public void alterar(Usuario novo) throws ExceptionDAO {
+        new UsuarioDAO().alterar(this, novo);
+    }
 }

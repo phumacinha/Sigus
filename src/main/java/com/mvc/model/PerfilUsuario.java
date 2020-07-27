@@ -5,38 +5,40 @@
  */
 package com.mvc.model;
 
+import com.dao.ExceptionDAO;
+import com.dao.PerfilUsuarioDAO;
+import java.util.ArrayList;
+
 /**
  *
  * @author pedro
  */
 public class PerfilUsuario {
-    private String perfil;
-    private String usuario;
+    private Perfil perfil;
+    private Usuario usuario;
     
-    public PerfilUsuario(String perfil, String usuario) {
+    public PerfilUsuario(Perfil perfil, Usuario usuario) {
         this.perfil = perfil;
         this.usuario = usuario;
     }
 
-    public String getPerfil() {
+    public Perfil getPerfil() {
         return perfil;
     }
 
-    public String getUsuario() {
+    public Usuario getUsuario() {
         return usuario;
     }
 
-    public void setPerfil(String perfil) {
+    public void setPerfil(Perfil perfil) {
         this.perfil = perfil;
     }
 
-    public void setUsuario(String usuario) {
+    public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
     }
 
-    public boolean relacionar() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-    
-    
+    public void salvarRelacionamento() throws ExceptionDAO {
+        new PerfilUsuarioDAO().salvarRelacionamento(usuario, perfil);
+    }    
 }

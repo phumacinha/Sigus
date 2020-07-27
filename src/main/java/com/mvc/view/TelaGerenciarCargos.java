@@ -5,14 +5,11 @@
  */
 package com.mvc.view;
 
-import com.dao.ExceptionDAO;
 import com.mvc.controller.CargoController;
 import com.mvc.model.Cargo;
 import com.mvc.view.util.OpcoesTabela;
 import com.mvc.view.util.Tabela;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.event.EventHandler;
 import javafx.geometry.HPos;
 import javafx.scene.control.Alert;
@@ -34,7 +31,7 @@ public class TelaGerenciarCargos extends TelaGerenciarAbstrata {
 
     @Override
     protected Tabela getDadosCadastrados() {
-        ArrayList<Cargo> cargos = new CargoController().retornaCargos();
+        ArrayList<Cargo> cargos = new CargoController().retornaTodos();
         
         if (cargos == null || cargos.isEmpty()) {
             return null;
@@ -92,7 +89,6 @@ public class TelaGerenciarCargos extends TelaGerenciarAbstrata {
                     }
                 
                 };
-                opcoes.setOnClickEditar(new TelaFormCargo(cargo));
                 opcoes.setOnClickRemover(acaoRemover);
                 tabela.addLinha(tabela.novaCelula(cargo.getNome()), tabela.novaCelula(opcoes));
             });

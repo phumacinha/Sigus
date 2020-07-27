@@ -5,6 +5,10 @@
  */
 package com.mvc.model;
 
+import com.dao.ExceptionDAO;
+import com.dao.PerfilDAO;
+import java.util.ArrayList;
+
 /**
  *
  * @author pedro
@@ -24,7 +28,15 @@ public class Perfil {
         this.nome = nome;
     }
     
-    public void cadastrar () {
-        
+    public void cadastrar () throws ExceptionDAO {
+        new PerfilDAO().cadastrar(this);
+    }
+    
+    public void remover () throws ExceptionDAO {
+        new PerfilDAO().remover(this);
+    }
+    
+    public void alterar (Perfil novo) throws ExceptionDAO {
+        new PerfilDAO().alterar(this, novo);
     }
 }

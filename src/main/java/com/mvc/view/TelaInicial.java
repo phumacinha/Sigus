@@ -6,6 +6,7 @@
 package com.mvc.view;
 
 import com.mvc.controller.CargoController;
+import com.mvc.controller.PerfilController;
 import com.mvc.controller.UsuarioController;
 import com.mvc.view.util.Atributo;
 import com.mvc.view.util.Botao;
@@ -86,9 +87,9 @@ public class TelaInicial extends TelaUtil {
         tituloQuantidade.setFont(Atributo.getUbuntu(20, Atributo.Estilo.BOLD));
         tituloQuantidade.setFill(Atributo.ROXO_PRINCIPAL);
         new UsuarioController().selecionarUsuarioPorCpf("11587306670");
-        QuantidadeCadastro qtdCargos = new QuantidadeCadastro(new CargoController().quantidadeCargos(), "cargo", "cargos");
-        QuantidadeCadastro qtdPerfis = new QuantidadeCadastro(3, "perfil", "perfis");
-        QuantidadeCadastro qtdUsuarios = new QuantidadeCadastro(12, "usuário", "usuários");
+        QuantidadeCadastro qtdCargos = new QuantidadeCadastro(new CargoController().quantidadeTotal(), "cargo", "cargos");
+        QuantidadeCadastro qtdPerfis = new QuantidadeCadastro(new PerfilController().quantidadeTotal(), "perfil", "perfis");
+        QuantidadeCadastro qtdUsuarios = new QuantidadeCadastro(new UsuarioController().quantidadeTotal(), "usuário", "usuários");
         
         HBox categorias = new HBox(qtdCargos, qtdPerfis, qtdUsuarios);
         categorias.setAlignment(Pos.CENTER);

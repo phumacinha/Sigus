@@ -59,21 +59,19 @@ public class CargoController {
         return false;
     }
     
-    public int quantidadeCargos () {
+    public int quantidadeTotal () {
         try {
-            return new CargoDAO().quantidadeCargos();
+            return new CargoDAO().quantidadeTotal();
         } catch (ExceptionDAO ex) {
             return 0;
         }
     }
     
-    public ArrayList<Cargo> retornaCargos () {
+    public ArrayList<Cargo> retornaTodos () {
         try {
-            return new CargoDAO().retornaCargos();
+            return new CargoDAO().retornaTodos();
         } catch (ExceptionDAO ex) {
             return null;
         }
     }
-    
-    
 }

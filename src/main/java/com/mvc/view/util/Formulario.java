@@ -6,12 +6,14 @@
 package com.mvc.view.util;
 
 import com.mvc.view.util.Atributo.Estilo;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
@@ -129,26 +131,29 @@ public class Formulario extends VBox {
         }
 
         public void setValue (String texto) {
-            campo.setText(texto.trim());
+            campo.setText(texto);
         }
     }
     
     public class CampoData extends Campo {
-        private final MaskedTextField campo;
+        private final DatePicker campo;
         
         public CampoData (String nome) {
             super(nome);
             
-            campo = new MaskedTextField("##/##/####");
+            campo = new DatePicker();
             campo.setPrefHeight(40);
-            campo.setFont(fontCampo);
             
             addCampo(campo);
         }
         
         @Override
         public String getValue () {
-            return campo.getPlainText().trim().length() == 0 ? null : campo.getText().trim();
+            return campo.getValue() == null ? null : campo.getValue().toString();
+        }
+        
+        public void setValue (String data) {
+            campo.setValue(LocalDate.parse(data));
         }
     }
     
@@ -200,6 +205,12 @@ public class Formulario extends VBox {
                     ? null
                     : selecionado.toString();
         }
+        
+        public void setValue (String opcao) {
+            if (opcao == null)
+                opcao = opcaoNula;
+            combobox.setValue(opcao);
+        }
     }
 
     public class CampoCheckBox extends Campo {
@@ -232,10 +243,14 @@ public class Formulario extends VBox {
         }
         
         public void addOpcao (String opcao) {
+            addOpcao(opcao, false);
+        }
+        
+        public void addOpcao (String opcao, boolean selected) {
             CheckBox checkbox = new CheckBox(opcao);
             checkbox.setFont(fontCampo);
             checkbox.setPrefHeight(40);
-            checkbox.isSelected();
+            checkbox.setSelected(selected);
             
             lista.add(checkbox);
             opcoes.getChildren().remove(texto);
@@ -243,7 +258,7 @@ public class Formulario extends VBox {
         }
         
         @Override
-        public Object getValue () {
+        public ArrayList<String> getValue () {
             ArrayList<String> selecionados = new ArrayList<>();
             
             lista.forEach(opcao -> {
@@ -251,7 +266,7 @@ public class Formulario extends VBox {
                     selecionados.add(((CheckBox) opcao).getText());
             });
             
-            return selecionados.isEmpty() ? null : selecionados;
+            return selecionados;
         }
     }
 }

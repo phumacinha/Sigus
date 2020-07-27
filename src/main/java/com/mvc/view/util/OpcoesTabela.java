@@ -39,7 +39,7 @@ public class OpcoesTabela extends HBox {
     }
     
     public void naoRemovivel () {
-        remover.setDisable(true);
+        getChildren().remove(remover);
     }
     
     public void setOnClickEditar(TelaUtil tela) {
