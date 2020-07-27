@@ -35,12 +35,14 @@ public class UsuarioDAO {
             pStatement.execute();
         }
         catch (SQLException ex) {
+            System.out.println("1");
             throw new ExceptionDAO("Erro ao cadastrar cargo: " + ex);
         }
         finally {
             try {
                 if (pStatement != null) pStatement.close();
             } catch (SQLException ex) {
+            System.out.println("2");
                 throw new ExceptionDAO("Erro ao fechar o Statement: " + ex);
             }
             
@@ -48,6 +50,7 @@ public class UsuarioDAO {
             try {
                 if (connection != null) connection.close();
             } catch (SQLException ex) {
+            System.out.println("3");
                 throw new ExceptionDAO("Erro ao fechar a conexão: " + ex);
             }
             

@@ -64,10 +64,10 @@ com/mvc/view/util/MaskedTextField$AnythingCharacter.class
 com/mvc/view/App.class
 com/mvc/controller/PerfilUsuarioController.class
 com/mvc/view/util/Atributo$Estilo.class
-com/mvc/view/util/Formulario$CampoCpf.class
 com/mvc/view/util/MaskedTextField$AlphaNumericCharacter.class
 com/mvc/view/util/Formulario$CampoComboBox.class
 com/mvc/view/TelaFormCargo$3.class
+com/mvc/view/TelaFormUsuario$4.class
 com/mvc/controller/CargoController.class
 com/mvc/view/util/MaskedTextField.class
 com/dao/UsuarioDAO.class

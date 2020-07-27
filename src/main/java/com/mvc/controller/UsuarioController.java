@@ -6,22 +6,15 @@
 package com.mvc.controller;
 
 import com.dao.ExceptionDAO;
-import com.dao.PerfilDAO;
 import com.dao.PerfilUsuarioDAO;
 import com.dao.UsuarioDAO;
 import com.mvc.model.Cargo;
 import com.mvc.model.Perfil;
 import com.mvc.model.PerfilUsuario;
 import com.mvc.model.Usuario;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.InputMismatchException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.List;
 
 /**
  *
@@ -34,7 +27,7 @@ public class UsuarioController {
             && (sexo == null || sexo.equals('M') || sexo.equals('F'))   
             && cargo != null) {
             
-            String data = dataNascimento == null ? null : dataNascimento.toString();
+            String data = dataNascimento;
             try {
                 Usuario usuario = new Usuario(nome, cpf, data, sexo, cargo);
                 usuario.cadastrar();

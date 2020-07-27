@@ -79,10 +79,6 @@ public class Formulario extends VBox {
         return new CampoData(nome);
     }
     
-    public CampoCpf novoCampoCpf (String nome) {
-        return new CampoCpf(nome);
-    }
-    
     public CampoComboBox novoCampoComboBox (String nome, String opcaoNula) {
         return new CampoComboBox(nome, opcaoNula);
     }
@@ -154,27 +150,6 @@ public class Formulario extends VBox {
         
         public void setValue (String data) {
             campo.setValue(LocalDate.parse(data));
-        }
-    }
-    
-    public class CampoCpf extends Campo {
-        private final MaskedTextField campo;
-        
-        public CampoCpf (String nome) {
-            super(nome);
-            
-            campo = new MaskedTextField("###.###.###-##");
-            campo.setPrefHeight(40);
-            campo.setFont(fontCampo);
-            
-            addCampo(campo);
-        }
-        
-        @Override
-        public String getValue () {
-            return campo.getPlainText().trim().length() == 0
-                    ? null
-                    : campo.getPlainText().trim();
         }
     }
     
@@ -262,8 +237,8 @@ public class Formulario extends VBox {
             ArrayList<String> selecionados = new ArrayList<>();
             
             lista.forEach(opcao -> {
-                if (((CheckBox) opcao).isSelected())
-                    selecionados.add(((CheckBox) opcao).getText());
+                if (opcao.isSelected())
+                    selecionados.add(opcao.getText());
             });
             
             return selecionados;

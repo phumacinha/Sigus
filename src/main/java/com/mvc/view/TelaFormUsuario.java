@@ -18,7 +18,6 @@ import com.mvc.view.util.Formulario;
 import com.mvc.view.util.Formulario.Campo;
 import com.mvc.view.util.Formulario.CampoCheckBox;
 import com.mvc.view.util.Formulario.CampoComboBox;
-import com.mvc.view.util.Formulario.CampoCpf;
 import com.mvc.view.util.Formulario.CampoData;
 import com.mvc.view.util.Formulario.CampoTexto;
 import com.mvc.view.util.Logotipo;
@@ -45,6 +44,7 @@ import javafx.stage.StageStyle;
 public class TelaFormUsuario extends TelaUtil {
     private Usuario usuario = null;
     private String acao;
+    private Perfil perfil = new Perfil(null);
     
     public TelaFormUsuario (Usuario usuario) {
         super("Editar usuário");
@@ -117,16 +117,16 @@ public class TelaFormUsuario extends TelaUtil {
         formulario.addCampo(campoPerfil);
         
         
-        Botao cadastrar = new Botao("Cadastrar", 15, 120, 40);
-        cadastrar.setPreenchido();
-        cadastrar.setOnMouseClicked(new EventHandler<MouseEvent>() {
+        Botao confirmar = new Botao("Confirmar", 15, 120, 40);
+        confirmar.setPreenchido();
+        confirmar.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent e) {
                 String valNome = nome.getValue();
                 String valCpf = cpf.getValue();
                 String valDataNascimento = dataNascimento.getValue();
                 String valSexo = sexo.getValue();
-                Cargo valCargo = new Cargo(campoCargo.getValue()); 
+                Cargo valCargo = campoCargo.getValue() != null ? new Cargo(campoCargo.getValue()) : null; 
                 ArrayList<String> valPerfisAux = campoPerfil.getValue();
                 ArrayList<Perfil> valPerfis = new ArrayList<>();
                 
@@ -136,12 +136,14 @@ public class TelaFormUsuario extends TelaUtil {
                     });
                 }
                 
-                System.out.println(valNome);
-                System.out.println(valCpf);
-                System.out.println(valDataNascimento);
-                System.out.println(valSexo);
-                System.out.println(valCargo);
-                System.out.println(valPerfis);
+                
+                if (usuario == null) {
+                    cadastrarUsuario(valNome, valCpf, valDataNascimento, valSexo, valCargo, valPerfis);
+                }
+                else {
+                    Usuario novo = new Usuario(valNome, valCpf, valDataNascimento, valSexo, valCargo);
+                    
+                }         
             }
         });
         
@@ -156,7 +158,7 @@ public class TelaFormUsuario extends TelaUtil {
             }
         });
         
-        formulario.addRodape(cancelar, cadastrar);
+        formulario.addRodape(cancelar, confirmar);
         
         VBox conteudo = new VBox(formulario);
         conteudo.setPadding(new Insets(0, 40, 40, 40));
@@ -169,8 +171,7 @@ public class TelaFormUsuario extends TelaUtil {
     }
     
     private void cadastrarUsuario (String nome, String cpf, String dataNascimento, String sexo, Cargo cargo, ArrayList<Perfil> perfis) {
-        boolean sucesso = false;
-        
+        boolean sucesso;
         Alert alerta = new Alert(Alert.AlertType.NONE);
         alerta.initStyle(StageStyle.UTILITY);
         alerta.setHeaderText(null);
@@ -179,7 +180,7 @@ public class TelaFormUsuario extends TelaUtil {
         try {
             UsuarioController cargoController = new UsuarioController();
             sucesso = cargoController.cadastrar(nome, cpf, dataNascimento, sexo, cargo, perfis);
-                
+            
             if (sucesso) {
                 alerta.setAlertType(Alert.AlertType.INFORMATION);
                 alerta.setTitle("Usuário cadastrado");
@@ -212,4 +213,47 @@ public class TelaFormUsuario extends TelaUtil {
         alerta.showAndWait();
     }
     
+    private void alterarUsuario (Usuario antigo, Usuario novo, ArrayList<Perfil> perfis) {
+        boolean sucesso;
+        
+        Alert alerta = new Alert(Alert.AlertType.NONE);
+        alerta.initStyle(StageStyle.UTILITY);
+        alerta.setHeaderText(null);
+        alerta.setResult(ButtonType.CLOSE);
+        
+        try {
+            UsuarioController usuarioController = new UsuarioController();
+            sucesso = usuarioController.alterar(antigo, novo, perfis);
+            
+            if (sucesso) {
+                alerta.setAlertType(Alert.AlertType.INFORMATION);
+                alerta.setTitle("Usuário alterado");
+                alerta.setContentText("Usuário alterado com sucesso.");
+                alerta.setOnCloseRequest(new EventHandler<DialogEvent>() {
+                    @Override
+                    public void handle(DialogEvent t) {
+                        getStage().close();
+                        App.abrirTela(new TelaGerenciarUsuarios());
+                    }
+                    
+                });
+            }
+            else {
+                alerta.setAlertType(Alert.AlertType.ERROR);
+                alerta.setTitle("Erro ao alterar o usuário");
+                alerta.setHeaderText("Erro ao alterar o usuário.");
+                alerta.setContentText("Verifique os campos e tente novamente.");
+            }
+            
+            
+        }
+        catch (Exception ex) {
+            alerta.setAlertType(Alert.AlertType.ERROR);
+            alerta.setTitle("Erro ao alterar o usuário");
+            alerta.setHeaderText(null);
+            alerta.setContentText("Houve um erro interno. Por favor, tente novamente.");
+        }
+        
+        alerta.showAndWait();
+    }
 }
