@@ -4,7 +4,7 @@ O Sistema de Gerenciamento de Usuários de um Sistema (Sigus) é um projeto dese
 ### Instalação e execução
 Para instalação das dependências, é necessária a utilização do Maven Apache.
 
-* Clone o repositório do [Sigus](http://github.com/phumacinha/Sigus) com o comando `git clone http://github.com/phumacinha/Sigus`
+* Clone o repositório do [Sigus](http://github.com/phumacinha/Sigus) com o comando `git clone https://github.com/phumacinha/Sigus.git`
 * Acesse o diretório com o comando `cd Sigus`
 * No diretório `resources` há um arquivo `.sql` com o banco de dados necessário para persitência dos dados.
 * Altere a classe `src/main/java/com/dao/Conexao.java` com os dados do seu banco de dados.
